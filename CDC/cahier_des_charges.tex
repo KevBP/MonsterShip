@@ -24,39 +24,41 @@ Maxime \bsc{Dubois}, Antoine \bsc{Lavier}}
     \section{Description générale du projet}
     C'est un jeu multijoueur par navigateur.\\
     Dans ce jeu le joueur contrôle et gère un vaisseau, le but étant de le faire grossir et prospérer.\\
-    L’équipage du vaisseau est composé de petits monstres capables aussi bien de piloter le vaisseau en lui même, que de gérer les moteurs, utiliser les armes embarquées, etc. Pour faire prospérer son vaisseau, il faut utiliser son équipage comme une ressource de construction. Par exemple, le joueur souhaite avoir une arme plus puissante, le coût pour améliorer l’arme c’est de fusionner 2 membres de l’équipage. De même pour l’agrandissement du vaisseau.\\
-    Pour améliorer son vaisseau, il faut explorer des planètes pour «recruter» d’autres membres. Il faudra trouver le bon équilibre pour faire grossir son vaisseau et le rendre ainsi plus puissant, mais aussi d’avoir un équipage suffisamment important pour que chaque fonctionnalité du vaisseau puisse être exploité à son plein potentiel.\\
-    Les joueurs peuvent se rencontrer et organiser des batailles purement statistiques. Le vainqueur repartirait avec potentiellement quelques dégâts mineurs, mais surtout avec de nouveaux membres d’équipages. Le perdant, lui repartira avec un bout de son vaisseau amputé.\\
+    L’équipage du vaisseau est composé de petits monstres capables aussi bien de piloter le vaisseau en lui même, que de gérer les moteurs, utiliser les armes embarquées, etc. Pour faire prospérer son vaisseau, il faut utiliser son équipage comme une ressource de construction. Par exemple, le joueur souhaite avoir une arme plus puissante, le coût pour améliorer l’arme c’est de fusionner 2 membres de l’équipage avec cette arme. De même, le joueur peut fusionner des membres d'équipage avec le vaisseau, afin de l'agrandir pour pouvoir placer plus d'équipements (réacteurs, armes...).\\
+    Pour améliorer son vaisseau, il faut explorer des planètes pour «recruter» d’autres membres. Il faudra trouver le bon équilibre entre faire grossir son vaisseau pour pouvoir ajouter des équipements et augmenter la puissance de ces équipements, mais en gardant un équipage suffisamment important pour que chaque fonctionnalité du vaisseau puisse être exploitée à son plein potentiel.\\
+    Les joueurs peuvent se rencontrer et organiser des batailles purement statistiques. Le vainqueur repartirait avec potentiellement quelques dégâts mineurs, mais surtout avec de nouveaux membres d’équipages. Le perdant, lui repartira un vaisseau endommagé, ayant perdu une partie de ses capacités, et un équipage réduit.\\
 
     \section{Les enjeux}
-    \begin{itemize}
-      \item On vise la concurrence directe de Ogame.
-      \item Le jeu vise une clientèle large, des joueurs occasionnels aux joueurs hardcores :
-      \begin{itemize}
-        \item Les mécanismes du jeu sont simples et tout gravite autour d'une seule ressource, ainsi il est simple d'accès pour tous. Ceci permettant au joueur de faire de courtes ou longues cessions de jeu.
-        \item Il n'est pas seulement simple, le fait d'avoir une micro-gestion de son équipage amènera les joueurs les plus hardcores à vouloir créer le vaisseau le plus puissant.
-      \end{itemize}
-    \end{itemize}
+    
+    L'objectif est de créer un jeu capable de concurrencer Ogame.
+    Pour cela, le jeu vise une clientèle large, allant des joueurs occasionnels, qui ne se connecte quelques fois par semaine, voire par mois, aux joueurs hardcore capables de passer plusieurs heures par jours à faire évoluer leur vaisseau.
+    
+    Pour cibler l'ensemble de cette clientèle, il est nécessaire d'avoir un mécanisme de jeu simple, avec une prise en main rapide. Pour cela, il n'existe qu'une seule ressource : l'équipage.
+    Cette simplicité d'utilisation permettra également aux joueurs hardcores de mettre en place des stratégies au niveau du développement de leur vaisseau, afin de pouvoir vaincre les autres joueurs qui pourraient s'attaquer à eux.
+
 
 \chapter{Définitions des éléments constituant du jeu}
+Le jeu est constitué d'un univers, dans lequel se trouvent des vaisseaux, appartenant aux joueurs.
     \section{L'univers}
+    Le jeu est constitué de plusieurs éléments, chacun pouvant être utile au joueur, ou au contraire néfaste.
       \begin{description}
-        \item[Etoiles] ce sont des objets extrêmements chauds et hostiles aux monsters et à leur vaisseau.
-        \item[Planètes habitées] ce sont des planètes où des monsters vivent.
-        \item[Planètes hostiles] ce sont des planètes très hostiles, où les monsters n'ont pu s'y installer pour diverses raisons.
+        \item[Etoiles] Ce sont des corps célestes extrêmements chauds et hostiles aux monstres et à leur vaisseau.
+        \item[Planètes habitées] Ce sont des planètes où des monstres vivent. Le joueur peut y aller pour recruter de nouveaux membre d'équipage.
+        \item[Planètes hostiles] Ce sont des planètes sur lesquels les monstres n'ont pu s'y installer pour diverses raisons, comme la température par exemple.
       \end{description}
       
     \section{Le vaisseau}
-      Voici la description des différents modules qui peuvent être présent dans un vaisseau :
+      Les vaisseaux sont constitués de différents modules, permettant de débloquer, ou d'améliorer les capacités du vaisseau.
       \begin{description}
-        \item[Réacteur] c'est la pièce centrale permettant à tout le vaisseau d'avoir la sauce nécessaire ! Et c'est une pièce puisant son énergie des précédents monsters fusionnés.
-        \item[Poste de pilotage] c'est ici que l'on dirige le vaisseau.
-        \item[Propulseur] c'est le module permettant de faire avancer le vaisseau.
-        \item[Bouclier] il permet d'avoir une protection globale qui se régénère avec le temps.
-        \item[Radar] ce module permet de détecter plus ou moins efficacement les éléments entourant le vaisseau (d'autres vaisseaux, des planètes, etc).
-        \item[Arme] il existe différent types d'armes selon l'objectif : certaines sont efficaces contre les boucliers, d'autres plus pour détruire la coque.
+        \item[Réacteur] C'est la pièce centrale permettant de créer de l'énergie pour alimenter les différents modules du vaisseau. Ainsi, s'il n'est pas suffisemment développé, le vaisseau ne pourra pas fonctionner à pleine puissance. Ce réacteur fournit de plus en plus d'énergie au fur et à mesure que les monstres fusionnent avec lui.
+        \item[Poste de pilotage] C'est ici que l'on dirige le vaisseau.
+        \item[Propulseur] C'est le module permettant de faire avancer le vaisseau. L'évolution de ce module permettra d'aller plus vite et plus loin.
+        \item[Bouclier] Il permet d'avoir une protection globale qui se régénère avec le temps.
+        \item[Radar] Ce module permet de détecter plus ou moins efficacement les éléments entourant le vaisseau (d'autres vaisseaux, des planètes, etc).
+        \item[Arme] Il existe différents types d'armes selon l'objectif : certaines sont efficaces contre les boucliers, d'autres plus pour détruire la coque.
       \end{description}
-      Pour l'amélioration ou l'ajout de module, il sera nécessaire de fusionner des monsters. Par exemple, nous avons un vaisseau avec un équipage de 10 monsters. Ils sont tous occupés à une tâche sauf 2. On en utilisera un premier pour le fusionner avec le vaisseau et rajouter un propulseur, et le second sera affecté à l'entretien de ce nouveau module. Ainsi le vaisseau gagnera en vitesse.
+      La quantité, et l'amélioration des modules sont limitées par la taille du vaisseau. Il est donc nécessaire d'agrandir régulièrement le vaisseau, en le fusionnant avec des monstres.
+      Pour l'amélioration des modules, il sera nécessaire de fusionner des monstres avec les modules. Par exemple, nous avons un vaisseau avec un équipage de 10 monsters. Ils sont tous occupés à une tâche sauf 3. On utilisera un premier pour le fusionner avec le vaisseau afin de l'agrandir. Le second permettra alors de rajouter un propulseur, et le dernier sera affecté à l'entretien de ce nouveau module. Ainsi le vaisseau gagnera en vitesse.
 
 \chapter{Expression fonctionnelle}
     \section{Graphe des intéractions}
