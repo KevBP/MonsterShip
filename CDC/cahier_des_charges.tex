@@ -32,9 +32,9 @@ Maxime \bsc{Dubois}, Antoine \bsc{Lavier}}
 
     L’équipage du vaisseau est composé de petits monstres capables aussi bien de piloter le vaisseau en lui même, que de gérer les moteurs, utiliser les armes embarquées, etc. Pour faire prospérer son vaisseau, il faut utiliser son équipage comme une ressource de construction. Par exemple, le joueur souhaite avoir une arme plus puissante, le coût pour améliorer l’arme c’est de fusionner 2 membres de l’équipage avec cette arme. De même, le joueur peut fusionner des membres d'équipage avec le vaisseau, afin de l'agrandir pour pouvoir placer plus d'équipements (réacteurs, armes...).\\
 
-    Pour améliorer son vaisseau, il faut explorer des planètes pour «recruter» d’autres membres. Lors du recrutement, le joueur aura le choix entre une action instantannée lui donnant accès à un certain nombre de monstres contre des points d'action, ou une action plus longue qui lui permet d'obtenir des monstres en fonction du temps resté à la surface. Dans ce dernier cas, le joueur est sujet aux attaques et il est par la même occasion plus vulnérable, mais il ne consomme aucun point d'action. Il faudra trouver le bon équilibre entre faire grossir son vaisseau pour pouvoir ajouter des équipements et augmenter la puissance de ces équipements, mais en gardant un équipage suffisamment important pour que chaque fonctionnalité du vaisseau puisse être exploitée à son plein potentiel.\\
+    Pour améliorer son vaisseau, il faut explorer des planètes pour «récolter» d’autres monstres. Lors du recrutement, le joueur aura le choix entre une action instantannée lui donnant accès à un certain nombre de monstres contre des points d'action, ou une action plus longue qui lui permet d'obtenir des monstres en fonction du temps resté à la surface. Dans ce dernier cas, le joueur est sujet aux attaques et il est par la même occasion plus vulnérable, mais il ne consomme aucun point d'action. Il faudra trouver le bon équilibre entre faire grossir son vaisseau pour pouvoir ajouter des équipements et augmenter la puissance de ces équipements, mais en gardant un équipage suffisamment important pour que chaque fonctionnalité du vaisseau puisse être exploitée à son plein potentiel.\\
 
-    Les joueurs peuvent se rencontrer et organiser des batailles purement statistiques. Le vainqueur repartirait avec potentiellement quelques dégâts mineurs, mais surtout avec de nouveaux membres d’équipages. Le perdant, lui repartira un vaisseau endommagé, ayant perdu une partie de ses capacités, et un équipage réduit.\\
+    Les joueurs peuvent se rencontrer et organiser des batailles purement statistiques. Le vainqueur repartirait avec potentiellement quelques dégâts mineurs, mais surtout avec de nouveaux membres d’équipages. Le perdant, lui repartira avec un vaisseau endommagé, ayant perdu une partie de ses capacités, et un équipage réduit.\\
 
     \section{Les enjeux}
     L'objectif est de créer un jeu capable de concurrencer OGame.\\
@@ -81,10 +81,31 @@ Maxime \bsc{Dubois}, Antoine \bsc{Lavier}}
         \end{figure}
 
     \section{Les fonctions principales}
-    % TODO FP0
+        \subsection{FP0 - Les utilisateurs se connectent à MonsterShip}
+            Les utilisateurs accèdent à MonsterShip depuis leur navigateur internet. Une fois sur le site, ils peuvent se connecter pour commencer à jouer. L'accès au jeu est donc contrôlé, chaque utilisateur devant s'inscrire au préalable en fournissant un pseudonyme encore non utilisé.
     
-    \section{Les fonctions secondaires}
-    % TODO FC0 à FC11
+    \section{Les fonctions complémentaires}
+        \subsection{FC0 - Utiliser le vaisseau}
+            Le jeu MonsterShip se concentre principalement sur la gestion de son vaisseau. À partir de cette fonction nous accédons donc à une grosse partie des fonctionnalités du jeu (FC1 à FC8).
+        
+        \subsection{FC1 - Déplacer son vaisseau}
+            Pour explorer l'univers, l'utilisateur peut déplacer son vaisseau. Son vaisseau sera donc sur une grille où il pourra sélectionner une des cases à proximiter pour s'y déplacer. Selon la vitesse du vaisseau, il pourra sélectionner des cases plus lointaines. Un déplacement a un coup d'un point d'action.
+
+        \subsection{FC2 - Agrandir le vaisseau}
+            Dans l'objectif de faire prospérer son vaisseau. L'utilisateur peut être intéressé par le fait de faire agrandir son vaisseau. Il pourra ainsi accueillir plus de monstres.
+
+        \subsection{FC3 - Attaquer}
+            Une fois à distance d'attaque, l'utilisateur peut consommer un point d'action pour attaquer un vaisseau à proximiter. S'il est le vainqueur de la bataille, il récupérera des monstres du vaisseau adverse. S'il est le perdant, il repartira avec des dégâts, des modules peuvent être perdus en cas de défaite. Quand un joueur se fait attaquer, et qu'il gagne, il en ressort sans perte, ni gain. Cependant s'il est perdant, il est susceptible de perdre un ou plusieurs modules ainsi que des monstres.
+
+        \subsection{FC4 - Récolter des monstres}
+            À proximité d'une planète, le joueur peut y poser son vaisseau pour récolter des monstres. Deux possibilités s'offrent à lui :
+            \begin{enumerate}
+                \item Récolter immédiatement et retourner dans l'espace. Ce choix a l'avantage d'être immédiat et sans risque. Cependant il coûte un point d'action et le nombre de monstre qu'il peut récolter est plafonné.
+                \item Récolter tant que le joueur ne décide pas de redécoller. Ce choix lui permet de récolter plus de monstres. Mais il doit pour cela se mettre en danger puisqu'il est susceptible de se faire attaquer dans une position désavantageuse. Cette méthode n'a aucun coût en point d'action.
+            \end{enumerate}
+
+        \subsection{FC5 - Gérer les modules}
+    % TODO FC5 à FC11
     
 \chapter{Maquette}
 
