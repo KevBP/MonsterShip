@@ -5,6 +5,7 @@
 \usepackage[francais]{babel}
 \usepackage{graphicx}
 \usepackage{setspace}
+\usepackage{float}
 
 \title{MonsterShip\texttrademark }
 \author{Olivier \bsc{Boissard}, Kevin \bsc{Boulala},\\
@@ -126,7 +127,32 @@ Maxime \bsc{Dubois}, Antoine \bsc{Lavier}}
             Si un utilisateur tombe sur un vaisseau abandonné, il peut récupérer des monstres s'il en reste à bord.
     
 \chapter{Maquette}
+    \section{Page de connexion et d'inscription}
+        \begin{figure}[H]
+            \begin{center}
+                \includegraphics[width=\textwidth]{maquette/screens/login.png}
+                \caption{Page de connexion}
+                \label{fig:connexion}
+            \end{center}
+        \end{figure}
+        \begin{figure}[H]
+            \begin{center}
+                \includegraphics[width=\textwidth]{maquette/screens/registration.png}
+                \caption{Page d'inscription}
+                \label{fig:inscription}
+            \end{center}
+        \end{figure}
+        Pour l'inscription, il n'est demandé qu'un nom d'utilisateur et un mot de passe (qu'il faut répéter pour être sûr que l'utilisateur ne se trompe pas). Plus d'informations seraient superflus.
 
+    \section{Page principale}
+        \begin{figure}[H]
+            \begin{center}
+                \includegraphics[width=\textwidth]{maquette/screens/main.png}
+                \caption{Page principale du jeu}
+                \label{fig:principale}
+            \end{center}
+        \end{figure}
+        Le vaisseau est au centre de la map. Nous voyons 3 planètes sur la carte. Nous avons un bouton pour accéder à l'interface de gestion du vaisseau (pour ajouter des modules, gérer notre équipage), un autre pour les notifications (rapport de combat quand on se fait attaquer par exemple) et un bouton à droite pour l'abandon du vaisseau.
 
 \chapter{Organisation et gestion du temps}
 
