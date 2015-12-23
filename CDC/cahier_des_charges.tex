@@ -76,7 +76,7 @@ Maxime \bsc{Dubois}, Antoine \bsc{Lavier}}
     \section{Graphe des intéractions}
         \begin{figure}[h]
             \begin{center}
-                \includegraphics[width=\textwidth]{graphe_interactions.png}
+                \includegraphics[width=\textwidth]{graphe_interactions/graphe_interactions.png}
                 \caption{Graphe des intéractions}
                 \label{fig:graphe_interactions}
             \end{center}
@@ -168,12 +168,51 @@ Maxime \bsc{Dubois}, Antoine \bsc{Lavier}}
         Nous avons deux tableaux, le premier permet de voir les modules composant notre vaisseau, leurs statistiques, le nombre de monstre nécessaire pour leur bon fonctionnement et les améliorations possibles. Le second tableau permet d'ajouter des modules à ceux existants.
 
 \chapter{Organisation et gestion du temps}
-    \begin{figure}[H]
-        \begin{center}
-            \includegraphics[width=\textwidth]{gantt.png}
-            \caption{Harmonogram Adamieckiego}
-            \label{fig:gantt}
-        \end{center}
-    \end{figure}
+    \section{Visualisation du projet dans le temps}
+        \begin{figure}[H]
+            \begin{center}
+                \includegraphics[width=\textwidth]{gantt/gantt.png}
+                \caption{Harmonogram Adamieckiego}
+                \label{fig:gantt}
+            \end{center}
+        \end{figure}
+        Les sprints n'ont pas rigoureusement le même temps pour que les dates correspondant aux bilans des sprints coïncident avec des journées où l'équipe peut se rencontrer.
+        \begin{description}
+            \item[Sprint 1] Mise en place de la structure du projet (côté serveur, mais aussi côté client). Développement des premières fonctionnalités : inscription, connexion, déplacement du vaisseau dans l'espace et la possibilité d'abandonner son vaisseau.
+            \item[Sprint 2] Développement des parties : gestion des modules, récolte de monstres (sur des planètes ou des vaisseaux abandonnés) et la possibilité de s'attaquer entre joueurs.
+            \item[Sprint 3] Développement des parties : agrandissement du vaisseau, ajout de contenu (modules, améliorations), équilibrage des stastiques des modules et des mécanismes de jeu.
+        \end{description}
+
+    \section{Structure du projet} 
+        \begin{figure}[H]
+            \begin{center}
+                \includegraphics[width=.5\textwidth]{structure_projet/structure_projet.png}
+                \caption{Arborescence du projet}
+                \label{fig:arbo}
+            \end{center}
+        \end{figure}
+        \begin{description}
+            \item[monstership-ear] cette partie permet d'empacter les modules du projet
+            \item[monstership-ejb] nous développerons les entités dans cette partie
+            \begin{description}
+                \item[data] définit l'accès aux données
+                \item[model] définit la structure de données du projet
+                \item[service] gère les fonctionnalités de l'application (inscription, connexion, déplacement du vaisseau, etc)
+                \item[util] c'est la partie outillage, on peut y mettre un système de log par exemple 
+            \end{description}
+            \item[monstership-web] est l'application web qu'utiliseront les joueurs
+            \begin{description}
+                \item[controller] définit comment gérer les événements
+                \item[util] de même que l'ejb
+                \item[webapp] c'est la vue de l'application 
+            \end{description}
+        \end{description}
+        \begin{figure}[H]
+            \begin{center}
+                \includegraphics[width=\textwidth]{cls_diag/class_diagram.png}
+                \caption{Diagramme de classe}
+                \label{fig:classe}
+            \end{center}
+        \end{figure}
 
 \end{document}
