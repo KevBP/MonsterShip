@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This is an unmanaged datasource. It should be used for proofs of concept
+<!-- This is an unmanaged datasource. It should be used for proofs of concept 
    or testing only. It uses H2, an in memory database that ships with JBoss
    AS. -->
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
