@@ -28,14 +28,15 @@ public class MemberController {
         return newMember;
     }
     
-    public void connect() throws Exception {
+    public String connect() throws Exception {
     	try {
     		memberManager.connect(newMember);
     		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Connected!", "Connection successful"));
+    		return "/register.xhtml"; // TODO
         } catch (Exception e) {
-            //String errorMessage = getRootErrorMessage(e);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error connection", "Connection Unsuccessful");
             facesContext.addMessage(null, m);
+            return null;
         }
     }
 
@@ -45,7 +46,6 @@ public class MemberController {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful"));
             initNewMember();
         } catch (Exception e) {
-            //String errorMessage = getRootErrorMessage(e);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error registration", "Registration Unsuccessful");
             facesContext.addMessage(null, m);
         }

@@ -9,7 +9,7 @@
          <h2>Create an account</h2>
          <h:panelGrid columns="3" columnClasses="titleCell">
             <h:outputLabel for="pseudo" value="Pseudo:"/>
-            <h:inputText id="pseudo" value="#{newMember.pseudo}" />
+            <h:inputText id="pseudo" value="#{newMember.pseudo}"/>
             <h:message for="pseudo" errorClass="invalid"/>
 
             <h:outputLabel for="password" value="Password:"/>
@@ -22,7 +22,7 @@
                <h:commandButton id="registration" action="#{memberController.register}" value="Create my account" styleClass="register"/>
                <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true"/>
             </h:panelGrid><br/>
-   			<a href="index.jsf">Index</a>
+   			<a href="index.xhtml">Index</a>
          </p>
       </h:form>
    </ui:define>
