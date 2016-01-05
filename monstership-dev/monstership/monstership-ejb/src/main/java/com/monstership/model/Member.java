@@ -30,7 +30,7 @@ public class Member implements Serializable {
     @Size(min = 8, max = 25)
     private String password;
 
-    @OneToMany(targetEntity = Starship.class, mappedBy = "member")
+    @OneToMany(targetEntity = Starship.class, mappedBy = "member", fetch = FetchType.LAZY)
     private Set<Starship> starships;
 
     public Long getId() {

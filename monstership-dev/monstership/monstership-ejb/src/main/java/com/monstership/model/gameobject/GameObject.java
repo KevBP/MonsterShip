@@ -17,16 +17,18 @@ import java.sql.Timestamp;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class GameObject implements Const, Serializable {
+    @Id
+    @GeneratedValue
+    private int id;
     protected long xPos;
     protected long yPos;
     protected String model;
     protected Float rotation;
     protected boolean visible = true;
+
     @ManyToOne(optional = false)
     protected Game game;
-    @Id
-    @GeneratedValue
-    private int id;
+
     @Version
     private Integer version;
 

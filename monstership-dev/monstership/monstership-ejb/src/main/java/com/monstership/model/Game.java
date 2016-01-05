@@ -16,7 +16,7 @@ public class Game {
     private long height;
     private boolean finished;
 
-    @OneToMany(targetEntity = GameObject.class, mappedBy = "game")
+    @OneToMany(targetEntity = GameObject.class, mappedBy = "game", fetch = FetchType.LAZY)
     private Set<GameObject> gameObjects;
 
     private Timestamp createDate;

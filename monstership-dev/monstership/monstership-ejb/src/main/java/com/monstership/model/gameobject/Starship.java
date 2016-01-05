@@ -7,6 +7,7 @@ import com.monstership.model.log.CombatLog;
 import com.monstership.model.module.Module;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class Starship extends GameObject implements Upgradable {
     @ManyToOne(optional = false)
     private Member member;
 
-    @OneToMany(targetEntity = CombatLog.class, mappedBy = "starship")
+    @OneToMany(targetEntity = CombatLog.class, mappedBy = "starship", fetch = FetchType.LAZY)
     private Set<CombatLog> combatLogs;
 
     @OneToMany(targetEntity = Module.class, mappedBy = "starship")

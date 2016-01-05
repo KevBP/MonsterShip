@@ -12,6 +12,7 @@ public abstract class Module implements Upgradable {
     protected int level = 1;
     @ManyToOne(optional = false)
     protected Starship starship;
+
     @Id
     @GeneratedValue
     private int id;
