@@ -19,7 +19,7 @@ public class MemberController {
 
     @Inject
     private MemberManager memberManager;
-    
+
     private Member newMember;
 
     @Produces
@@ -27,12 +27,14 @@ public class MemberController {
     public Member getNewMember() {
         return newMember;
     }
-    
+
     public String connect() throws Exception {
-    	try {
-    		memberManager.connect(newMember);
-    		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Connected!", "Connection successful"));
-    		return "/register.xhtml"; // TODO
+        try {
+            memberManager.connect(newMember);
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Connected!", "Connection successful"));
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.getExternalContext().getSessionMap().put("member", newMember);
+            return "/game/home.xhtml";
         } catch (Exception e) {
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error connection", "Connection Unsuccessful");
             facesContext.addMessage(null, m);
@@ -54,24 +56,5 @@ public class MemberController {
     @PostConstruct
     public void initNewMember() {
         newMember = new Member();
-    }
-
-    private String getRootErrorMessage(Exception e) {
-        // Default to general error message that registration failed.
-        String errorMessage = "Registration failed. See server log for more information";
-        if (e == null) {
-            // This shouldn't happen, but return the default messages
-            return errorMessage;
-        }
-
-        // Start with the exception and recurse to find the root cause
-        Throwable t = e;
-        while (t != null) {
-            // Get the message from the Throwable class instance
-            errorMessage = t.getLocalizedMessage();
-            t = t.getCause();
-        }
-        // This is the root cause message
-        return errorMessage;
     }
 }

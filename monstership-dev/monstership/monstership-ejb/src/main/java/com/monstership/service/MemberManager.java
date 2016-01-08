@@ -24,12 +24,12 @@ public class MemberManager {
     private Event<Member> memberEventSrc;
 
     public void connect(Member member) throws Exception {
-    	Query q = em.createQuery("from Member m where m.pseudo=:ps and m.password=:pw");
-    	q.setParameter("ps", member.getPseudo());
-    	q.setParameter("pw", member.getPassword());
-    	if(q.getResultList().isEmpty()) {
-        	log.info("ERROR Connecting " + member);
-        	throw new Exception();
+        Query q = em.createQuery("from Member m where m.pseudo=:ps and m.password=:pw");
+        q.setParameter("ps", member.getPseudo());
+        q.setParameter("pw", member.getPassword());
+        if(q.getResultList().isEmpty()) {
+            log.info("ERROR Connecting " + member);
+            throw new Exception();
         }
         log.info("Connecting " + member);
     }
