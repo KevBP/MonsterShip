@@ -16,10 +16,8 @@ public class MemberManager {
 
     @Inject
     private Logger log;
-
     @Inject
     private EntityManager em;
-
     @Inject
     private Event<Member> memberEventSrc;
 

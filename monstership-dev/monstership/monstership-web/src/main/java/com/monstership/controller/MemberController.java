@@ -17,10 +17,8 @@ public class MemberController {
 
     @Inject
     private FacesContext facesContext;
-
     @Inject
     private MemberManager memberManager;
-
     private Member newMember;
 
     @Produces
