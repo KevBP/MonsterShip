@@ -39,7 +39,9 @@ public abstract class GameObject implements Const, Serializable {
     @PrePersist
     void onCreate() {
         Timestamp date = EntityUtils.now();
-        this.setCreateDate(date);
+        if (getCreateDate() == null){
+            this.setCreateDate(date);
+        }
         this.setUpdateDate(date);
     }
 

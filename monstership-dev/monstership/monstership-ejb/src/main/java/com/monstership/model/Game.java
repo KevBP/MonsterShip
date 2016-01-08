@@ -23,7 +23,10 @@ public class Game {
 
     @PrePersist
     void onCreate() {
-        this.setCreateDate(EntityUtils.now());
+        Timestamp date = EntityUtils.now();
+        if (getCreateDate() == null) {
+            this.setCreateDate(date);
+        }
     }
 
     public int getId() {
