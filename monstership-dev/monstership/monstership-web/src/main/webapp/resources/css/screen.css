@@ -1,6 +1,12 @@
+* {
+  color: lightblue;
+  font-family: sans-serif, serif;
+  text-align: center;
+}
 body {
-  margin: 0;
-  padding: 0;
+  background: black url("#{request.contextPath}/resources/gfx/brightest.jpg");
+  margin: auto;
+  padding: 50px 200px;
 }
 #container {
   margin: auto;
@@ -11,4 +17,12 @@ body {
 }
 span.invalid {
   color: red;
+}
+form {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-radius: 20px;
+  padding: 20px;
+}
+input {
+  background-color: #232323;
 }
