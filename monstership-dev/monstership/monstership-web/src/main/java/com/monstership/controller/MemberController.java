@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,24 +29,24 @@ public class MemberController {
         return newMember;
     }
 
-    public String connect() throws Exception {
+    public void connect() throws Exception {
         try {
             memberManager.connect(newMember);
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Connected!", "Connection successful"));
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.getExternalContext().getSessionMap().put("member", newMember);
-            return "/game/home.xhtml";
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.getSessionMap().put("member", newMember);
+            externalContext.redirect("./game/home.xhtml");
         } catch (Exception e) {
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error connection", "Connection Unsuccessful");
             facesContext.addMessage(null, m);
-            return null;
         }
     }
 
     public void register() throws Exception {
         try {
             memberManager.register(newMember);
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful"));
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.getSessionMap().put("member", newMember);
+            externalContext.redirect("./game/home.xhtml");
             initNewMember();
         } catch (Exception e) {
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error registration", "Registration Unsuccessful");
