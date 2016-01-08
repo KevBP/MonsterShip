@@ -1,10 +1,14 @@
+@font-face {
+  font-family: 'neuropolx';
+  src: url('#{request.contextPath}/resources/fonts/neuropolx.ttf') format('truetype');
+}
 * {
   color: lightblue;
-  font-family: sans-serif, serif;
+  font-family: neuropolx, sans-serif, serif;
   text-align: center;
 }
 body {
-  background: black url("#{request.contextPath}/resources/gfx/brightest.jpg");
+  background: black url('#{request.contextPath}/resources/gfx/brightest.jpg');
   margin: auto;
   padding: 50px 200px;
 }
@@ -18,10 +22,16 @@ body {
 span.invalid {
   color: red;
 }
+h1 {
+  color: orange;
+}
 form {
   background-color: rgba(40, 40, 40, 0.8);
   border-radius: 20px;
   padding: 20px;
+}
+fieldset {
+  border-radius: 5px;
 }
 input {
   background-color: #232323;

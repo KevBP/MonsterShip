@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   template="/WEB-INF/templates/default.xhtml">
-   <ui:define name="content">
-      <h:form id="reg">
-         <h2>Create an account</h2>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <fieldset>
+                <legend>Create an account</legend>
 
-            <h:outputLabel for="pseudo" value="Pseudo:"/><br/>
-            <h:inputText id="pseudo" value="#{newMember.pseudo}"/>
-            <h:message for="pseudo" errorClass="invalid"/><br/>
+                <h:outputLabel for="pseudo" value="Pseudo:"/><br/>
+                <h:inputText id="pseudo" value="#{newMember.pseudo}"/>
+                <h:message for="pseudo" errorClass="invalid"/><br/>
 
-            <h:outputLabel for="password" value="Password:"/><br/>
-            <h:inputSecret id="password" value="#{newMember.password}"/>
-            <h:message for="password" errorClass="invalid"/><br/>
+                <h:outputLabel for="password" value="Password:"/><br/>
+                <h:inputSecret id="password" value="#{newMember.password}"/>
+                <h:message for="password" errorClass="invalid"/><br/>
 
-         <p>
-               <h:commandButton id="registration" action="#{memberController.register}" value="Create my account" styleClass="register"/><br/>
-               <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true"/><br/>
-            <a href="index.xhtml">Index</a>
-         </p>
-      </h:form>
-   </ui:define>
+                <p>
+                    <h:commandButton id="registration" action="#{memberController.register}" value="Create my account" styleClass="register"/><br/>
+                    <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true"/><br/>
+                    <a href="index.xhtml">Index</a>
+                </p>
+            </fieldset>
+        </h:form>
+    </ui:define>
 </ui:composition>

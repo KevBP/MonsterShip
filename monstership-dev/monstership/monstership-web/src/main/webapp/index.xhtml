@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
-        <h:form id="reg">
-            <h2>Connection to MonsterShip</h2>
+        <h:form>
+            <fieldset>
+                <legend>Connection to MonsterShip</legend>
 
-            <h:outputLabel for="pseudo" value="Pseudo:"/><br/>
-            <h:inputText id="pseudo" value="#{newMember.pseudo}" />
-            <h:message for="pseudo" errorClass="invalid"/><br/>
+                <h:outputLabel for="pseudo" value="Pseudo:"/><br/>
+                <h:inputText id="pseudo" value="#{newMember.pseudo}"/>
+                <h:message for="pseudo" errorClass="invalid"/><br/>
 
-            <h:outputLabel for="password" value="Password:"/><br/>
-            <h:inputSecret id="password" value="#{newMember.password}"/>
-            <h:message for="password" errorClass="invalid"/><br/>
+                <h:outputLabel for="password" value="Password:"/><br/>
+                <h:inputSecret id="password" value="#{newMember.password}"/>
+                <h:message for="password" errorClass="invalid"/><br/>
 
-            <p>
-                <h:commandButton id="connection" action="#{memberController.connect}" value="Connection" styleClass="register"/><br/>
-                <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true"/><br/>
-                <a href="register.xhtml">Create an account</a>
-            </p>
+                <p>
+                    <h:commandButton id="connection" action="#{memberController.connect}" value="Connection" styleClass="register"/><br/>
+                    <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true"/><br/>
+                    <a href="register.xhtml">Create an account</a>
+                </p>
+            </fieldset>
         </h:form>
     </ui:define>
 </ui:composition>
