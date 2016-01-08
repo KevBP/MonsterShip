@@ -7,21 +7,18 @@
     <ui:define name="content">
         <h:form id="reg">
             <h2>Connection to MonsterShip</h2>
-            <h:panelGrid columns="3" columnClasses="titleCell">
-                <h:outputLabel for="pseudo" value="Pseudo:"/>
-                <h:inputText id="pseudo" value="#{newMember.pseudo}" />
-                <h:message for="pseudo" errorClass="invalid"/>
 
-                <h:outputLabel for="password" value="Password:"/>
-                <h:inputSecret id="password" value="#{newMember.password}"/>
-                <h:message for="password" errorClass="invalid"/>
-            </h:panelGrid>
+            <h:outputLabel for="pseudo" value="Pseudo:"/><br/>
+            <h:inputText id="pseudo" value="#{newMember.pseudo}" />
+            <h:message for="pseudo" errorClass="invalid"/><br/>
+
+            <h:outputLabel for="password" value="Password:"/><br/>
+            <h:inputSecret id="password" value="#{newMember.password}"/>
+            <h:message for="password" errorClass="invalid"/><br/>
 
             <p>
-                <h:panelGrid columns="2">
-                    <h:commandButton id="connection" action="#{memberController.connect}" value="Connection" styleClass="register"/>
-                    <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true"/>
-                </h:panelGrid><br/>
+                <h:commandButton id="connection" action="#{memberController.connect}" value="Connection" styleClass="register"/><br/>
+                <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true"/><br/>
                 <a href="register.xhtml">Create an account</a>
             </p>
         </h:form>
