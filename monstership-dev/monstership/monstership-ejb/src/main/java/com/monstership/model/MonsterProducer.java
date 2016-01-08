@@ -1,6 +1,8 @@
 package com.monstership.model;
 
 
+import com.monstership.model.gameobject.Starship;
+
 public interface MonsterProducer {
-    int produce();
+    int produce(Starship starship);
 }

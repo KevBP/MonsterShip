@@ -17,6 +17,7 @@ public class Starship extends GameObject implements Upgradable {
     private long monsterCount;
     private long actionPoint = DEFAULT_ACTION_POINT;
     private int level = 1;
+    private boolean active = true;
 
     @ManyToOne(optional = false)
     private Member member;
@@ -55,11 +56,19 @@ public class Starship extends GameObject implements Upgradable {
         this.level = level;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
-    public synchronized boolean upgrade() {
+    public boolean upgrade() {
         long upgradeCost = upgradeCost();
         if (getMonsterCount() >= upgradeCost) {
-            level += 1;
+            setLevel(getLevel() + 1);
             setMonsterCount(getMonsterCount() - upgradeCost);
             return true;
         }
@@ -80,6 +89,14 @@ public class Starship extends GameObject implements Upgradable {
                 ret.setPower(ret.getPower() + effect.getPower());
                 ret.setSpeed(ret.getSpeed() + effect.getSpeed());
             }
+        }
+        return ret;
+    }
+
+    public long getTotalMonsterCount() {
+        long ret = getMonsterCount();
+        for (Module module : this.modules) {
+           ret += module.getMonsterCount();
         }
         return ret;
     }

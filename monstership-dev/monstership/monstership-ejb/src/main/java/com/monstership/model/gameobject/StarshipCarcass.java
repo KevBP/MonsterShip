@@ -21,7 +21,7 @@ public class StarshipCarcass extends GameObject implements MonsterProducer {
     }
 
     @Override
-    public int produce() {
+    public int produce(Starship starship) {
         return 0; // TODO
     }
 }
