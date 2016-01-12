@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity
 public class Starship extends GameObject implements Upgradable {
-    private long monsterCount;
+    private long monsterCount = 3;
     private long actionPoint = DEFAULT_ACTION_POINT;
     private int level = 1;
     private boolean active = true;
@@ -29,7 +29,7 @@ public class Starship extends GameObject implements Upgradable {
     private Set<Module> modules;
 
     public Starship() {
-        this.setModel("starship_carcass");
+        this.setModel("starship");
     }
 
     public long getMonsterCount() {
@@ -62,6 +62,14 @@ public class Starship extends GameObject implements Upgradable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     @Override

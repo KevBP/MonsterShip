@@ -8,6 +8,7 @@ import java.util.Random;
 @Entity
 public class Planet extends GameObject implements MonsterProducer {
     private final static Random rand = new Random();
+
     public Planet() {
         this.setModel("planet");
     }

@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.monstership.model.Member;
+import com.monstership.service.GameManager;
 import com.monstership.service.MemberManager;
 
 @Model
@@ -20,6 +21,9 @@ public class MemberController {
 
     @Inject
     private MemberManager memberManager;
+
+    @Inject
+    private GameManager gameManager;
 
     private Member newMember;
 

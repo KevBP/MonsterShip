@@ -21,6 +21,9 @@ public class MemberManager {
     private EntityManager em;
 
     @Inject
+    GameManager gameManager;
+
+    @Inject
     private Event<Member> memberEventSrc;
 
     public void connect(Member member) throws Exception {
@@ -32,11 +35,13 @@ public class MemberManager {
             throw new Exception();
         }
         log.info("Connecting " + member);
+        gameManager.setMember((Member) q.getResultList().get(0));
     }
 
     public void register(Member member) throws Exception {
         log.info("Registering " + member);
         em.persist(member);
+        gameManager.setMember(member);
         memberEventSrc.fire(member);
     }
 }

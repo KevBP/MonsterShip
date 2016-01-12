@@ -20,8 +20,8 @@ public abstract class GameObject implements Const, Serializable {
     @Id
     @GeneratedValue
     private int id;
-    protected long xPos;
-    protected long yPos;
+    protected long xPos = 0;
+    protected long yPos = 0;
     protected String model;
     protected Float rotation;
     protected boolean visible = true;

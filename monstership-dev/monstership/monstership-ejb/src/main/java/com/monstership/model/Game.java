@@ -12,9 +12,9 @@ public class Game {
     @Id
     @GeneratedValue
     private int id;
-    private long width;
-    private long height;
-    private boolean finished;
+    private long width = 5000;
+    private long height = 5000;
+    private boolean finished = false;
 
     @OneToMany(targetEntity = GameObject.class, mappedBy = "game", fetch = FetchType.LAZY)
     private Set<GameObject> gameObjects;
