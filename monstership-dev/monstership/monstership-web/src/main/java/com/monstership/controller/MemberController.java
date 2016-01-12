@@ -18,10 +18,8 @@ public class MemberController {
 
     @Inject
     private FacesContext facesContext;
-
     @Inject
     private MemberManager memberManager;
-
     @Inject
     private GameManager gameManager;
 
@@ -51,7 +49,6 @@ public class MemberController {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             externalContext.getSessionMap().put("member", newMember);
             externalContext.redirect("./game/home.xhtml");
-            initNewMember();
         } catch (Exception e) {
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error registration", "Registration Unsuccessful");
             facesContext.addMessage(null, m);

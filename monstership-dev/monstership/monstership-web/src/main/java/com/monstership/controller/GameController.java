@@ -5,6 +5,7 @@ import com.monstership.service.GameManager;
 
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,24 +16,23 @@ public class GameController {
 
     @Inject
     private GameManager gameManager;
-    private Member member;
-    private FacesContext context;
+    private ExternalContext externalContext;
 
     public GameController() {
-        context = FacesContext.getCurrentInstance();
-        member = (Member) context.getExternalContext().getSessionMap().get("member");
+        externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        gameManager = new GameManager((Member) externalContext.getSessionMap().get("member"));
     }
 
     @Produces
     @Named
     public Member getMember() {
-        return member;
+        return gameManager.getMember();
     }
 
     public void disconnect() {
-        context.getExternalContext().invalidateSession();
+        externalContext.invalidateSession();
         try {
-            context.getExternalContext().redirect("../index.xhtml");
+            externalContext.redirect("../index.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
