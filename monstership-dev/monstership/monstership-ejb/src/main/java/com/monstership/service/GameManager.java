@@ -75,7 +75,7 @@ public class GameManager implements Serializable {
             planet.setGame(game);
             planet.setXPos(xcoord);
             planet.setYPos(ycoord);
-            if (coordinates.add(new Coordinate(planet.getXPos(), planet.getYPos()))){
+            if (coordinates.add(new Coordinate(planet.getxPos(), planet.getyPos()))){
                 em.persist(planet);
             }else{
                 i--;
@@ -140,16 +140,16 @@ public class GameManager implements Serializable {
             boolean moved = false;
             switch (direction.toUpperCase().trim()) {
                 case "UP":
-                    moved = starship.setYPos(starship.getYPos() + 1);
+                    moved = starship.setYPos(starship.getyPos() + 1);
                     break;
                 case "DOWN":
-                    moved = starship.setYPos(starship.getYPos() - 1);
+                    moved = starship.setYPos(starship.getyPos() - 1);
                     break;
                 case "LEFT":
-                    moved = starship.setXPos(starship.getXPos() - 1);
+                    moved = starship.setXPos(starship.getxPos() - 1);
                     break;
                 case "RIGHT":
-                    moved = starship.setXPos(starship.getXPos() + 1);
+                    moved = starship.setXPos(starship.getxPos() + 1);
                     break;
             }
             if (moved) {

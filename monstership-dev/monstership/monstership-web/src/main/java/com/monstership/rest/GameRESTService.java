@@ -51,6 +51,7 @@ public class GameRESTService {
     @Path("/planets")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Planet> listPlanets() {
+        
         return gameManager.listPlanet();
     }
 

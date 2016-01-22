@@ -50,7 +50,7 @@ public abstract class GameObject implements Const, Serializable {
         this.setUpdateDate(EntityUtils.now());
     }
 
-    public long getXPos() {
+    public long getxPos() {
         return xPos;
     }
 
@@ -63,7 +63,7 @@ public abstract class GameObject implements Const, Serializable {
         return false;
     }
 
-    public long getYPos() {
+    public long getyPos() {
         return yPos;
     }
 
