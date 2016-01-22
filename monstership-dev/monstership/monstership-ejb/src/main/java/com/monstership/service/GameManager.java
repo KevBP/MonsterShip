@@ -86,22 +86,28 @@ public class GameManager implements Serializable {
     @Lock
     public Starship move(String direction) {
         Starship starship = getOrCreateStarship();
-        switch (direction.toUpperCase()) {
-            case "UP":
-                starship.setYPos(starship.getYPos() + 1);
-                break;
-            case "DOWN":
-                starship.setYPos(starship.getYPos() - 1);
-                break;
-            case "LEFT":
-                starship.setXPos(starship.getXPos() - 1);
-                break;
-            case "RIGHT":
-                starship.setXPos(starship.getXPos() + 1);
-                break;
+        if (starship.getActionPoint() > 0) {
+            boolean moved = false;
+            switch (direction.toUpperCase()) {
+                case "UP":
+                    moved = starship.setYPos(starship.getYPos() + 1);
+                    break;
+                case "DOWN":
+                    moved = starship.setYPos(starship.getYPos() - 1);
+                    break;
+                case "LEFT":
+                    moved = starship.setXPos(starship.getXPos() - 1);
+                    break;
+                case "RIGHT":
+                    moved = starship.setXPos(starship.getXPos() + 1);
+                    break;
+            }
+            if (moved){
+                starship.setActionPoint(starship.getActionPoint() - 1L);
+            }
+            em.persist(starship);
+            em.flush();
         }
-        em.persist(starship);
-        em.flush();
         return starship;
     }
 }

@@ -54,22 +54,26 @@ public abstract class GameObject implements Const, Serializable {
         return xPos;
     }
 
-    public void setXPos(long xPos) {
+    public boolean setXPos(long xPos) {
         if (xPos != this.xPos) {
             this.xPos = Math.max(xPos, 0);
             setUpdateDate(EntityUtils.now());
+            return true;
         }
+        return false;
     }
 
     public long getYPos() {
         return yPos;
     }
 
-    public void setYPos(long yPos) {
+    public boolean setYPos(long yPos) {
         if (yPos != this.yPos) {
             this.yPos = Math.max(yPos, 0);
             setUpdateDate(EntityUtils.now());
+            return true;
         }
+        return false;
     }
 
     public int getId() {
