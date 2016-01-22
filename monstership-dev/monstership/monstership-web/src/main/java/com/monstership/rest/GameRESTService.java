@@ -2,6 +2,7 @@ package com.monstership.rest;
 
 import com.monstership.model.Game;
 import com.monstership.model.Member;
+import com.monstership.model.gameobject.Planet;
 import com.monstership.model.gameobject.Starship;
 import com.monstership.service.GameManager;
 
@@ -9,6 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/game")
 @RequestScoped
@@ -44,4 +46,12 @@ public class GameRESTService {
     public Starship move(@PathParam("direction") String direction) {
         return gameManager.move(direction);
     }
+
+    @GET
+    @Path("/planets")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Planet> listPlanets() {
+        return gameManager.listPlanet();
+    }
+
 }

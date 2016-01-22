@@ -2,6 +2,7 @@ package com.monstership.service;
 
 import com.monstership.model.Game;
 import com.monstership.model.Member;
+import com.monstership.model.gameobject.Planet;
 import com.monstership.model.gameobject.Starship;
 
 import javax.ejb.Lock;
@@ -12,6 +13,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 @Stateful
@@ -51,6 +55,7 @@ public class GameManager implements Serializable {
                 currentGame = new Game();
                 em.persist(currentGame);
                 em.flush();
+                generateRandomPlanet(currentGame);
             } else {
                 currentGame = (Game) resultList.get(0);
                 log.info("using game " + currentGame.getId());
@@ -59,6 +64,51 @@ public class GameManager implements Serializable {
         return currentGame;
     }
 
+    private long generateRandomPlanet(Game game) {
+        Random random = new Random();
+        long l = game.getWidth() * game.getHeight() * 20 / 100;
+        Set<Coordinate> coordinates = new TreeSet<>();
+        for (int i = 0; i < l; i++) {
+            long xcoord = random.nextInt((int) game.getWidth());
+            long ycoord = random.nextInt((int) game.getHeight());
+            Planet planet = new Planet();
+            planet.setGame(game);
+            planet.setXPos(xcoord);
+            planet.setYPos(ycoord);
+            if (coordinates.add(new Coordinate(planet.getXPos(), planet.getYPos()))){
+                em.persist(planet);
+            }else{
+                i--;
+            }
+        }
+        return l;
+    }
+
+    static class Coordinate implements Comparable<Coordinate>{
+        private final long x;
+        private final long y;
+
+        Coordinate(long x, long y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public int compareTo(Coordinate o) {
+            int compare = Long.compare(x, o.x);
+            return compare != 0 ? compare : Long.compare(y, o.y);
+        }
+    }
+
+    public List<Planet> listPlanet() {
+        //TODO viewport
+        Query q = em.createQuery("from Planet p where game = :game", Planet.class);
+        q.setParameter("game", getOrCreateCurrentGame());
+        List resultList = q.getResultList();
+        return resultList; // TODO
+    }
+
+    @Lock
     public Starship getOrCreateStarship() {
         if (getMember() == null) {
             return null;
@@ -88,7 +138,7 @@ public class GameManager implements Serializable {
         Starship starship = getOrCreateStarship();
         if (starship.getActionPoint() > 0) {
             boolean moved = false;
-            switch (direction.toUpperCase()) {
+            switch (direction.toUpperCase().trim()) {
                 case "UP":
                     moved = starship.setYPos(starship.getYPos() + 1);
                     break;
@@ -102,7 +152,7 @@ public class GameManager implements Serializable {
                     moved = starship.setXPos(starship.getXPos() + 1);
                     break;
             }
-            if (moved){
+            if (moved) {
                 starship.setActionPoint(starship.getActionPoint() - 1L);
             }
             em.persist(starship);

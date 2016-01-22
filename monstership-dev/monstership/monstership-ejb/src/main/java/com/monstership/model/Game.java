@@ -12,8 +12,8 @@ public class Game {
     @Id
     @GeneratedValue
     private int id;
-    private long width = 5000;
-    private long height = 5000;
+    private long width = 100;
+    private long height = 100;
     private boolean finished = false;
 
     @OneToMany(targetEntity = GameObject.class, mappedBy = "game", fetch = FetchType.LAZY)

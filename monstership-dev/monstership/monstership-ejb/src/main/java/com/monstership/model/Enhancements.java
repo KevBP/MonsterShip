@@ -5,6 +5,7 @@ public class Enhancements {
     private int dodge;
     private int power;
     private int speed;
+
     public Enhancements(){
         this(0,0,0);
     }
