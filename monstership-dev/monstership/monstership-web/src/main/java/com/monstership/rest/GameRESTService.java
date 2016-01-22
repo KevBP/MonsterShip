@@ -55,7 +55,7 @@ public class GameRESTService {
             @DefaultValue("-1") @QueryParam("y") int y
     ) {
         if (x != -1 && y != -1){
-            return gameManager.listPlanet(x, y);
+            return gameManager.listPlanet((Integer)x, (Integer)y);
         }
         return gameManager.listPlanet();
     }
