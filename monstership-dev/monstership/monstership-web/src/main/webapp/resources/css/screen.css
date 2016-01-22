@@ -2,6 +2,10 @@
   font-family: 'neuropolx';
   src: url('#{request.contextPath}/resources/fonts/neuropolx.ttf') format('truetype');
 }
+@font-face {
+  font-family: 'planets';
+  src: url('#{request.contextPath}/resources/fonts/planetes.TTF') format('truetype');
+}
 * {
   color: lightblue;
   font-family: neuropolx, sans-serif, serif;
@@ -45,6 +49,9 @@ table {
   min-height: 20px;
   height: 20px;
   background-color: rgba(100, 100, 100, 0.8);
+}
+.map .planets {
+  font-family: planets, neuropolx, sans-serif, serif;
 }
 th {
   background-color: rgba(165, 80, 80, 0.8);

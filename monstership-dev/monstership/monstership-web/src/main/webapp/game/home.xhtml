@@ -6,7 +6,8 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <f:view>
-            <h:outputLabel value="Hello, world #{member.pseudo}"/><br/>
+            <h:outputLabel value="Hello, commander #{member.pseudo}"/><br/>
+            <div id="showStarshipPosition"></div>
             <div id="showMap"></div>
             <h:form>
                 <h:commandButton action="#{gameController.disconnect}" value="Logout"/>
