@@ -50,8 +50,13 @@ public class GameRESTService {
     @GET
     @Path("/planets")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Planet> listPlanets() {
-        
+    public List<Planet> listPlanets(
+            @DefaultValue("-1") @QueryParam("x") int x,
+            @DefaultValue("-1") @QueryParam("y") int y
+    ) {
+        if (x != -1 && y != -1){
+            return gameManager.listPlanet(x, y);
+        }
         return gameManager.listPlanet();
     }
 

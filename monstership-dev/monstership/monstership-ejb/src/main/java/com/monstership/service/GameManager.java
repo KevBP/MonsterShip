@@ -100,6 +100,15 @@ public class GameManager implements Serializable {
         }
     }
 
+    public List<Planet> listPlanet(Integer x, Integer y) {
+        Query q = em.createQuery("from Planet p where game = :game and xPos between :x and (:x + 19) and yPos between :y and (:y + 19)", Planet.class);
+        q.setParameter("game", getOrCreateCurrentGame());
+        q.setParameter("x", x);
+        q.setParameter("y", y);
+        List resultList = q.getResultList();
+        return resultList; // TODO
+    }
+
     public List<Planet> listPlanet() {
         //TODO viewport
         Query q = em.createQuery("from Planet p where game = :game", Planet.class);
