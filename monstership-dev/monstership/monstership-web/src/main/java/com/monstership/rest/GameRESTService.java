@@ -5,23 +5,20 @@ import com.monstership.model.Member;
 import com.monstership.model.gameobject.Starship;
 import com.monstership.service.GameManager;
 
-import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.Serializable;
 
-@Path("/test")
+@Path("/game")
 @RequestScoped
-public class TestRESTService {
+public class GameRESTService {
 
     @Inject
     transient GameManager gameManager;
 
     @GET
-    @Path("/game")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Game getGame() {
         return gameManager.getOrCreateCurrentGame();
@@ -39,5 +36,12 @@ public class TestRESTService {
     @Produces(MediaType.APPLICATION_JSON)
     public Member getMember() {
         return gameManager.getMember();
+    }
+
+    @GET
+    @Path("/move/{direction:(UP|DOWN|LEFT|RIGHT)}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Starship move(@PathParam("direction") String direction) {
+        return gameManager.move(direction);
     }
 }

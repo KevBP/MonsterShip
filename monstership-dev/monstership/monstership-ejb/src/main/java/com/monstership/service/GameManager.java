@@ -4,6 +4,7 @@ import com.monstership.model.Game;
 import com.monstership.model.Member;
 import com.monstership.model.gameobject.Starship;
 
+import javax.ejb.Lock;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -24,7 +25,6 @@ public class GameManager implements Serializable {
 
     private Member member;
     private Game currentGame;
-    private Starship starship;
 
     public GameManager() {
     }
@@ -63,24 +63,45 @@ public class GameManager implements Serializable {
         if (getMember() == null) {
             return null;
         }
-        if (starship == null || !starship.isActive()) {
-            Query q = em.createQuery("from Starship a where active = true and a.member.id = :user", Starship.class);
-            q.setParameter("user", getMember().getId());
-            q.setMaxResults(1);
-            List resultList = q.getResultList();
-            if (resultList.isEmpty()) {
-                log.info("Creating new starship");
-                starship = new Starship();
-                Game currentGame1 = getOrCreateCurrentGame();
-                starship.setGame(currentGame1);
-                starship.setMember(getMember());
-                em.persist(starship);
-                em.flush();
-            } else {
-                starship = (Starship) resultList.get(0);
-                log.info("using starship " + currentGame.getId());
-            }
+        Query q = em.createQuery("from Starship a where active = true and a.member.id = :user", Starship.class);
+        q.setParameter("user", getMember().getId());
+        q.setMaxResults(1);
+        List resultList = q.getResultList();
+        Starship starship;
+        if (resultList.isEmpty()) {
+            log.info("Creating new starship");
+            starship = new Starship();
+            Game currentGame1 = getOrCreateCurrentGame();
+            starship.setGame(currentGame1);
+            starship.setMember(getMember());
+            em.persist(starship);
+            em.flush();
+        } else {
+            starship = (Starship) resultList.get(0);
+            log.info("using starship " + currentGame.getId());
         }
+        return starship;
+    }
+
+    @Lock
+    public Starship move(String direction) {
+        Starship starship = getOrCreateStarship();
+        switch (direction.toUpperCase()) {
+            case "UP":
+                starship.setYPos(starship.getYPos() + 1);
+                break;
+            case "DOWN":
+                starship.setYPos(starship.getYPos() - 1);
+                break;
+            case "LEFT":
+                starship.setXPos(starship.getXPos() - 1);
+                break;
+            case "RIGHT":
+                starship.setXPos(starship.getXPos() + 1);
+                break;
+        }
+        em.persist(starship);
+        em.flush();
         return starship;
     }
 }
