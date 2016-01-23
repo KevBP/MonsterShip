@@ -30,6 +30,8 @@ public class Starship extends GameObject implements Upgradable {
 
     public Starship() {
         this.setModel("starship");
+        xPos = 50;
+        yPos = 50;
     }
 
     public long getMonsterCount() {
