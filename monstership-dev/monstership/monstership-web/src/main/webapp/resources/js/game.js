@@ -56,10 +56,10 @@ function showStarshipInformations() {
 function move(x, y) {
     var dir = null;
     if (y < 9 && x == 9) {
-        dir = "UP";
+        dir = "DOWN";
     }
     else if (y > 9 && x == 9) {
-        dir = "DOWN";
+        dir = "UP";
     }
     else if (x < 9 && y == 9) {
         dir = "LEFT";
