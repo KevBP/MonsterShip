@@ -5,6 +5,7 @@ import com.monstership.model.Member;
 import com.monstership.model.gameobject.Planet;
 import com.monstership.model.gameobject.Starship;
 import com.monstership.service.GameManager;
+import java.util.Collections;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -58,6 +59,19 @@ public class GameRESTService {
             return gameManager.listPlanet((Integer)x, (Integer)y);
         }
         return gameManager.listPlanet();
+    }
+    
+    @GET
+    @Path("/starships")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Starship> listStarships(
+            @DefaultValue("-1") @QueryParam("x") int x,
+            @DefaultValue("-1") @QueryParam("y") int y
+    ) {
+        if (x != -1 && y != -1){
+            return Collections.EMPTY_LIST;
+        }
+        return gameManager.listStarships(x, y);
     }
 
 }
