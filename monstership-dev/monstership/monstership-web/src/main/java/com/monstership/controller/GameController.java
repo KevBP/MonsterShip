@@ -31,6 +31,7 @@ public class GameController {
 
     public void disconnect() {
         externalContext.invalidateSession();
+        externalContext.getSessionMap().clear();
         try {
             externalContext.redirect("../index.xhtml");
         } catch (IOException e) {
