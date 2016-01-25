@@ -3,12 +3,12 @@ var planets;
 function init() {
     $.get( "../rest/game/starship", function( data ) {
         starShip = data;
-        showMap(starShip, planets);
+        $.getJSON( "../rest/game/planets", {"x":starShip.xPos-9, "y":starShip.yPos-9}, function( data ) {
+            planets = data;
+            showMap(starShip, planets);
+        });
     });
-    $.getJSON( "../rest/game/planets", function( data ) {
-        planets = data;
-        showMap(starShip, planets);
-    });
+    
 }
 function showMap(starShip, planets) {
     var size = 19;
@@ -20,18 +20,21 @@ function showMap(starShip, planets) {
                 table += "<td onclick='move("+x+","+y+")'>O</td>";
             }
             else if(planets && starShip){
-                console.log(planets);
                 var xPosStarShip = starShip.xPos - 9;
-                var yPosStarShip = starShip.xPos - 9;
-                var planetFound = 0;
+                var yPosStarShip = starShip.yPos - 9;
+                var planetFound = -1;
                 for (var i = 0; i < planets.length; i++) {
                     if (planets[i].xPos == x+xPosStarShip && planets[i].yPos == y+yPosStarShip) {
-                        planetFound = 1;
+                        planetFound = i;
                     }
                 }
-                if (planetFound == 1) {
-                    table += "<td onclick='move("+x+","+y+")'>P</td>";
+                if (planetFound != -1) {
+                    console.log(x, y);
+                    console.log(planets[planetFound]);
+                    table += "<td onclick='move("+x+","+y+")' class='planets' style='color:#00F'>P</td>";
                 }else {
+                    console.log(x, y);
+                    console.log()
                     table += "<td onclick='move("+x+","+y+")'></td>";
                 }
             }
@@ -68,9 +71,9 @@ function move(x, y) {
 
     if (dir != null) {
         $.get( "../rest/game/move/" + dir, function( data ) {
+            showStarshipInformations();
+            init();
         });
-        showStarshipInformations();
-        init();
     }
 }
 showStarshipInformations();
