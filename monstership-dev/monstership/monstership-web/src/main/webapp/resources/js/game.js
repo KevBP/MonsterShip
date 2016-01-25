@@ -1,42 +1,40 @@
-function showMap() {
+var starShip;
+var planets;
+function init() {
+    $.get( "../rest/game/starship", function( data ) {
+        starShip = data;
+        $.getJSON( "../rest/game/planets", {"x":starShip.xPos-9, "y":starShip.yPos-9}, function( data ) {
+            planets = data;
+            showMap(starShip, planets);
+        });
+    });
+    
+}
+function showMap(starShip, planets) {
     var size = 19;
     var table = "<table class='map'>";
-    //get starship coordinates
-    var xPosStarShip;
-    var yPosStarShip;
-    $.get( "../rest/game/starship", function( data ) {
-        xPosStarShip = data.xPos - 9;
-        yPosStarShip= data.yPos - 9;
-    });
-    //get list of planets to display with case en haut a gauche (je sais pas le dire en anglais et la flemme de chercher)
-    var coordX = [];
-    var coordY = [];
-    $.getJSON( "../rest/game/planets", function( data ) {
-        for (var i = 0; i < data.length; i++) {
-            coordX.push(data[i].xPos);
-            coordY.push(data[i].yPos);
-        }
-    });
-    
-    alert(coordX.length);
-    alert(coordX.length);
-    
     for(var y=0; y < size; y++) {
         table += "<tr>";
         for(var x=0; x < size; x++) {
             if(x == Math.floor(size/2) && y == x) {
                 table += "<td onclick='move("+x+","+y+")'>O</td>";
             }
-            else {
-                var planetFound = 0;
-                for (var i = 0; i < coordX.length; i++) {
-                    if (coordX[i] == x+xPosStarShip && coordY[i] == y+yPosStarShip) {
-                        planetFound = 1;
+            else if(planets && starShip){
+                var xPosStarShip = starShip.xPos - 9;
+                var yPosStarShip = starShip.yPos - 9;
+                var planetFound = -1;
+                for (var i = 0; i < planets.length; i++) {
+                    if (planets[i].xPos == x+xPosStarShip && planets[i].yPos == y+yPosStarShip) {
+                        planetFound = i;
                     }
                 }
-                if (planetFound == 1) {
-                    table += "<td onclick='move("+x+","+y+")'>P</td>";
+                if (planetFound != -1) {
+                    console.log(x, y);
+                    console.log(planets[planetFound]);
+                    table += "<td onclick='move("+x+","+y+")' class='planets' style='color:#00F'>P</td>";
                 }else {
+                    console.log(x, y);
+                    console.log()
                     table += "<td onclick='move("+x+","+y+")'></td>";
                 }
             }
@@ -73,10 +71,10 @@ function move(x, y) {
 
     if (dir != null) {
         $.get( "../rest/game/move/" + dir, function( data ) {
+            showStarshipInformations();
+            init();
         });
-        showStarshipInformations();
-        showMap();
     }
 }
 showStarshipInformations();
-showMap();
+init();
