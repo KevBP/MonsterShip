@@ -5,6 +5,7 @@ import com.monstership.model.Member;
 import com.monstership.model.Upgradable;
 import com.monstership.model.log.CombatLog;
 import com.monstership.model.module.Module;
+import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,8 +31,9 @@ public class Starship extends GameObject implements Upgradable {
 
     public Starship() {
         this.setModel("starship");
-        xPos = 50;
-        yPos = 50;
+        Random random = new Random();
+        xPos = random.nextInt(15) + 40;
+        yPos = random.nextInt(15) + 40;
     }
 
     public long getMonsterCount() {
