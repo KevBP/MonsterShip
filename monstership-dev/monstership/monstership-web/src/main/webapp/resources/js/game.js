@@ -59,29 +59,32 @@
     }
 
     function move(x, y) {
-        var dir = null;
-        if (y < 9 && x == 9) {
-            dir = "DOWN";
-        }
-        else if (y > 9 && x == 9) {
-            dir = "UP";
-        }
-        else if (x < 9 && y == 9) {
-            dir = "LEFT";
-        }
-        else if (x > 9 && y == 9) {
-            dir = "RIGHT";
-        }
-        else {
-            // not allowed
-        }
+        $.getJSON( "../rest/game/starship", function( data ) {
+            var dir = "NONE";
+            if (y < 9 && x == 9 && data.yPos > 0) {
+                dir = "DOWN";
+            }
+            else if (y > 9 && x == 9 && data.yPos < data.game.height) {
+                dir = "UP";
+            }
+            else if (x < 9 && y == 9 && data.xPos > 0) {
+                dir = "LEFT";
+            }
+            else if (x > 9 && y == 9 && data.xPos < data.game.width) {
+                dir = "RIGHT";
+            }
+            else {
+                // not allowed
+            }
+            console.log(dir+", starship ["+data.xPos+","+data.yPos+"]");
 
-        if (dir != null) {
-            $.get( "../rest/game/move/" + dir, function( data ) {
-                showStarshipInformations();
-                init();
-            });
-        }
+            if (dir != "NONE") {
+                $.get( "../rest/game/move/" + dir, function( data ) {
+                    showStarshipInformations();
+                    init();
+                });
+            }
+        });
     }
     showStarshipInformations();
     init();
