@@ -54,7 +54,7 @@
 
     function showStarshipInformations() {
         $.getJSON( "../rest/game/starship", function( data ) {
-            document.getElementById('showStarshipPosition').innerHTML = "Position ["+data.xPos+","+data.yPos+"]<br/>Action points: "+data.actionPoint;
+            document.getElementById('showStarshipPosition').innerHTML = "Position ["+data.xPos+","+data.yPos+"]<br/>Monster crew: "+data.monsterCount+"<br/>Action points: "+data.actionPoint;
         });
     }
 
