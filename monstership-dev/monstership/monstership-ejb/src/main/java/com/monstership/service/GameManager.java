@@ -5,11 +5,12 @@ import com.monstership.model.Member;
 import com.monstership.model.gameobject.Planet;
 import com.monstership.model.gameobject.Starship;
 
-import javax.ejb.Lock;
-import javax.ejb.Stateful;
+import javax.annotation.Resource;
+import javax.ejb.*;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,31 +22,56 @@ import java.util.logging.Logger;
 
 @Stateful
 @SessionScoped
-public class GameManager implements Serializable {
+public class GameManager implements Serializable, IGameManagerLocal {
 
     private static final transient Logger log = Logger.getAnonymousLogger();
 
-    @Inject
+    @PersistenceContext
     private EntityManager em;
 
     private Member member;
+
     private Game currentGame;
 
+    @Resource
+    private SessionContext ctx;
+
     public GameManager() {
+        if (ctx != null){
+            Object member = ctx.getContextData().get("member");
+            if (member != null && member instanceof Member){
+                setMember((Member) member);
+            }
+        }
     }
 
     public GameManager(Member member) {
         this.member = member;
     }
 
+    @Override
     public Member getMember() {
         return member;
     }
 
+    @Override
     public void setMember(Member member) {
         this.member = member;
     }
 
+    @Override
+    public void setMemberById(Long memberId) {
+        Query query = em.createQuery("from Member where id = :id");
+        query.setParameter("id", memberId);
+        query.setMaxResults(1);
+        List resultList = query.getResultList();
+        if (!resultList.isEmpty()){
+            setMember((Member) resultList.get(0));
+        }
+    }
+
+    @Override
+    @Lock(LockType.WRITE)
     public Game getOrCreateCurrentGame() {
         if (currentGame == null || currentGame.isFinished()) {
             Query q = em.createQuery("from Game where finished = false", Game.class);
@@ -101,6 +127,7 @@ public class GameManager implements Serializable {
         }
     }
     
+    @Override
     public List<Starship> listStarships(Integer x, Integer y) {
         Query q = em.createQuery("from Starship s where game = :game and xPos between :x and (:x + 19 - 1) and yPos between :y and (:y + 19 - 1)", Starship.class);
         q.setParameter("game", getOrCreateCurrentGame());
@@ -110,6 +137,7 @@ public class GameManager implements Serializable {
         return resultList;
     }
 
+    @Override
     public List<Planet> listPlanet(Integer x, Integer y) {
         Query q = em.createQuery("from Planet p where game = :game and xPos between :x and (:x + 19 - 1) and yPos between :y and (:y + 19 - 1)", Planet.class);
         q.setParameter("game", getOrCreateCurrentGame());
@@ -119,6 +147,7 @@ public class GameManager implements Serializable {
         return resultList; // TODO
     }
 
+    @Override
     public List<Planet> listPlanet() {
         //TODO viewport
         Query q = em.createQuery("from Planet p where game = :game", Planet.class);
@@ -127,7 +156,8 @@ public class GameManager implements Serializable {
         return resultList; // TODO
     }
 
-    @Lock
+    @Override
+    @Lock(LockType.WRITE)
     public Starship getOrCreateStarship() {
         if (getMember() == null) {
             return null;
@@ -147,12 +177,13 @@ public class GameManager implements Serializable {
             em.flush();
         } else {
             starship = (Starship) resultList.get(0);
-            log.info("using starship " + currentGame.getId());
+            log.info("using starship " + getOrCreateCurrentGame().getId());
         }
         return starship;
     }
 
-    @Lock
+    @Override
+    @Lock(LockType.WRITE)
     public Starship move(String direction) {
         Starship starship = getOrCreateStarship();
         if (starship.getActionPoint() > 0) {

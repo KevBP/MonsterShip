@@ -26,7 +26,7 @@ public class Starship extends GameObject implements Upgradable {
     @OneToMany(targetEntity = CombatLog.class, mappedBy = "starship", fetch = FetchType.LAZY)
     private Set<CombatLog> combatLogs;
 
-    @OneToMany(targetEntity = Module.class, mappedBy = "starship")
+    @OneToMany(targetEntity = Module.class, mappedBy = "starship", fetch = FetchType.LAZY)
     private Set<Module> modules;
 
     public Starship() {

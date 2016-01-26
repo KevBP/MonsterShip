@@ -2,6 +2,7 @@ package com.monstership.service;
 
 import com.monstership.model.Member;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -12,19 +13,18 @@ import java.util.logging.Logger;
 
 //The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class MemberManager {
+public class MemberManager implements IMemberManagerLocal {
 
     @Inject
     private Logger log;
     @Inject
     private EntityManager em;
-    @Inject
-    GameManager gameManager;
 
     @Inject
     private Event<Member> memberEventSrc;
 
-    public void connect(Member member) throws Exception {
+    @Override
+    public Member connect(Member member) throws Exception {
         Query q = em.createQuery("from Member m where m.pseudo=:ps and m.password=:pw");
         q.setParameter("ps", member.getPseudo());
         q.setParameter("pw", member.getPassword());
@@ -33,13 +33,14 @@ public class MemberManager {
             throw new Exception();
         }
         log.info("Connecting " + member);
-        gameManager.setMember((Member) q.getResultList().get(0));
+        return (Member) q.getResultList().get(0);
     }
 
-    public void register(Member member) throws Exception {
+    @Override
+    public Member register(Member member) throws Exception {
         log.info("Registering " + member);
         em.persist(member);
-        gameManager.setMember(member);
         memberEventSrc.fire(member);
+        return member;
     }
 }

@@ -2,7 +2,9 @@ package com.monstership.controller;
 
 import com.monstership.model.Member;
 import com.monstership.service.GameManager;
+import com.monstership.service.IGameManagerLocal;
 
+import javax.ejb.EJB;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
@@ -14,13 +16,13 @@ import java.io.IOException;
 @Model
 public class GameController {
 
-    @Inject
-    private GameManager gameManager;
+    @EJB
+    private IGameManagerLocal gameManager;
     private ExternalContext externalContext;
 
     public GameController() {
         externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        gameManager = new GameManager((Member) externalContext.getSessionMap().get("member"));
+        //gameManager = new GameManager((Member) externalContext.getSessionMap().get("member"));
     }
 
     @Produces

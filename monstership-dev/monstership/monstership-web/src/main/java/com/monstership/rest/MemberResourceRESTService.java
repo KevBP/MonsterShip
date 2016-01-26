@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
@@ -26,6 +27,7 @@ import javax.ws.rs.core.Response;
 
 import com.monstership.data.MemberRepository;
 import com.monstership.model.Member;
+import com.monstership.service.IMemberManagerLocal;
 import com.monstership.service.MemberManager;
 
 @Path("/members")
@@ -40,8 +42,8 @@ public class MemberResourceRESTService {
     @Inject
     private MemberRepository repository;
 
-    @Inject
-    MemberManager manager;
+    @EJB
+    IMemberManagerLocal manager;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
