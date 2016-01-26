@@ -71,7 +71,7 @@ public class GameRESTService {
         if (x != -1 && y != -1){
             return Collections.EMPTY_LIST;
         }
-        return gameManager.listStarships(x, y);
+        return gameManager.listStarships((Integer)x, (Integer)y);
     }
 
 }

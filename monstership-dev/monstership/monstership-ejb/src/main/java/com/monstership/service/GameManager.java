@@ -102,7 +102,7 @@ public class GameManager implements Serializable {
     }
     
     public List<Starship> listStarships(Integer x, Integer y) {
-        Query q = em.createQuery("from Starship s where game = :game and xPos between :x and (:x + 19 - 1) and yPos between :y and (:y + 19 - 1)", Planet.class);
+        Query q = em.createQuery("from Starship s where game = :game and xPos between :x and (:x + 19 - 1) and yPos between :y and (:y + 19 - 1)", Starship.class);
         q.setParameter("game", getOrCreateCurrentGame());
         q.setParameter("x", x);
         q.setParameter("y", y);

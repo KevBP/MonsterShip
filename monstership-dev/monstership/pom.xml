@@ -18,6 +18,7 @@
     </licenses>
     <modules>
         <module>monstership-web</module>
+        <module>monstership-ejb</module>
         <module>monstership-ear</module>
     </modules>
 
