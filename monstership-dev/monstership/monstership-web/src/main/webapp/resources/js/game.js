@@ -38,9 +38,9 @@
                         }
                     }
                     if (planetFound != -1) {
-                        table += "<td onclick='move("+x+","+y+")' class='planets' style='color:#00F'></td>";
+                        table += "<td onclick='move("+x+","+y+")' class='planets' style='color:#ae3414'>p</td>";
                     }else if (starshipFound != -1) {
-                        table += "<td onclick='move("+x+","+y+")' class='planets' style='color:#00F'>X</td>";
+                        table += "<td onclick='move("+x+","+y+")' class='planets' style='color:#a7ff48'>X</td>";
                     }else {
                         table += "<td onclick='move("+x+","+y+")'></td>";
                     }
