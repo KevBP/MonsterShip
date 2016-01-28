@@ -87,16 +87,17 @@
         \end{figure}
         
       \paragraph{Implémentation}
-        Nous avons créé une interface local à l'EJB pour gérer les connexions et les inscriptions : \textit{IMemberManagerLocal}. Cette interface propose les prototypes de deux méthodes : une première pour la connexion \textit{Member connect(Member member) throws Exception} et une seconde pour l'inscription \textit{Member register(Member member) throws Exception}.\\
-        Cette interface a été implémenté dans \textit{MemberManager}. Pour ces deux méthodes nous récupérons en paramètre un Member dont on verra d'où il vient plus tard dans cette partie. Pour la connexion nous utilisons l'EntityManager pour créer une requête qui récupèrera l'utilisateur dans la base de donnée. Cette requête cherche un utilisateur selon le pseudonyme et le mot de passe que nous avons dans l'objet de type Member (reçu en paramètre d'entrée). Puis nous retournons le Member que la requête a permis de trouver, si aucun Member n'est trouvé, nous lançons une exception.\\
-        Pour l'inscription nous utilisons l'\textit{EntityManager} pour inscrire le Member (le rendre persistant) dans la base de donnée.\\
+        Nous avons créé une interface local à l'EJB pour gérer les connexions et les inscriptions : \textit{"IMemberManagerLocal"}. Cette interface propose les prototypes de deux méthodes : une première pour la connexion \textit{"Member connect(Member member) throws Exception"} et une seconde pour l'inscription \textit{"Member register(Member member) throws Exception"}.\\
+        Cette interface a été implémenté dans \textit{"MemberManager"}. Pour ces deux méthodes nous récupérons en paramètre un Member dont on verra d'où il vient plus tard dans cette partie. Pour la connexion nous utilisons l'EntityManager pour créer une requête qui récupèrera l'utilisateur dans la base de donnée. Cette requête cherche un utilisateur selon le pseudonyme et le mot de passe que nous avons dans l'objet de type Member (reçu en paramètre d'entrée). Puis nous retournons le Member que la requête a permis de trouver, si aucun Member n'est trouvé, nous lançons une exception.\\
+        Pour l'inscription nous utilisons l'\textit{"EntityManager"} pour inscrire le Member (le rendre persistant) dans la base de donnée.\\
         
-        Du côté de l'application web, nous avons une page qui contient 
+        Du côté de l'application web, nous avons une page qui contient un formulaire avec un commandButton ayant pour action de faire un appel à un \textit{"MemberController"} et notamment de sa méthode connect. C'est de cette manière qu'on récupère un Member : l'inputText du formulaire récupère la valeur avec \textit{"newMember.pseudo"} (et de même avec le mot de passe).\\
         
-        Il faut ensuite faire le lien entre les Manager que nous venons de développer et l'application web. Pour cela on crée des Controller : notamment ici un \textit{MemberController} qui a comme attribut l'EJB IMemberManagerLocal.
+        Il faut ensuite faire le lien entre les Manager que nous venons de développer et l'application web. Pour cela on crée des Controller : notamment ici un \textit{"MemberController"} qui a comme attribut l'EJB IMemberManagerLocal. Le newMember que nous avions dans le formulaire est récupéré par ce controller, puis est passé à l'EJB et à son MemberManager. La méthode de connexion du Manager retournant un Member ou lançant une exception, nous redirigeons l'utilisateur sur la page principale du jeu s'il peut se connecter, sinon nous capturons l'exception et nous retournons un message à la page web grâce aux FacesContext. Et nous faisons de même avec l'inscription.
       
 
     \subsection{Visualisation de la carte et déplacements}
+      
 
     \subsection{Récolte de monstres}
 
