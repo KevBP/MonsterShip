@@ -55,8 +55,10 @@ public abstract class GameObject implements Const, Serializable {
     }
 
     public boolean setXPos(long xPos) {
+        xPos = Math.max(xPos, 0);
+        xPos = Math.min(xPos, getGame().getWidth() - 1);
         if (xPos != this.xPos) {
-            this.xPos = Math.max(xPos, 0);
+            this.xPos = xPos;
             setUpdateDate(EntityUtils.now());
             return true;
         }
@@ -68,8 +70,10 @@ public abstract class GameObject implements Const, Serializable {
     }
 
     public boolean setYPos(long yPos) {
+        yPos = Math.max(yPos, 0);
+        yPos = Math.min(yPos, getGame().getHeight() - 1);
         if (yPos != this.yPos) {
-            this.yPos = Math.max(yPos, 0);
+            this.yPos = yPos;
             setUpdateDate(EntityUtils.now());
             return true;
         }

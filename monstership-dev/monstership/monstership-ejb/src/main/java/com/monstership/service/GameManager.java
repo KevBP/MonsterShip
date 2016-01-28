@@ -9,9 +9,7 @@ import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +35,9 @@ public class GameManager implements Serializable, IGameManagerLocal {
     private SessionContext ctx;
 
     public GameManager() {
-        if (ctx != null){
+        if (ctx != null) {
             Object member = ctx.getContextData().get("member");
-            if (member != null && member instanceof Member){
+            if (member != null && member instanceof Member) {
                 setMember((Member) member);
             }
         }
@@ -65,24 +63,24 @@ public class GameManager implements Serializable, IGameManagerLocal {
         query.setParameter("id", memberId);
         query.setMaxResults(1);
         List resultList = query.getResultList();
-        if (!resultList.isEmpty()){
+        if (!resultList.isEmpty()) {
             setMember((Member) resultList.get(0));
         }
     }
 
     @Override
-    @Lock(LockType.WRITE)
     public Game getOrCreateCurrentGame() {
         if (currentGame == null || currentGame.isFinished()) {
             Query q = em.createQuery("from Game where finished = false", Game.class);
             q.setMaxResults(1);
+            q.setLockMode(LockModeType.OPTIMISTIC);
             List resultList = q.getResultList();
             if (resultList.isEmpty()) {
                 log.info("Creating new game");
                 currentGame = new Game();
                 em.persist(currentGame);
-                em.flush();
                 generateRandomPlanet(currentGame);
+                em.flush();
             } else {
                 currentGame = (Game) resultList.get(0);
                 log.info("using game " + currentGame.getId());
@@ -102,16 +100,16 @@ public class GameManager implements Serializable, IGameManagerLocal {
             planet.setGame(game);
             planet.setXPos(xcoord);
             planet.setYPos(ycoord);
-            if (coordinates.add(new Coordinate(planet.getxPos(), planet.getyPos()))){
+            if (coordinates.add(new Coordinate(planet.getxPos(), planet.getyPos()))) {
                 em.persist(planet);
-            }else{
+            } else {
                 i--;
             }
         }
         return l;
     }
 
-    static class Coordinate implements Comparable<Coordinate>{
+    static class Coordinate implements Comparable<Coordinate> {
         private final long x;
         private final long y;
 
@@ -126,7 +124,7 @@ public class GameManager implements Serializable, IGameManagerLocal {
             return compare != 0 ? compare : Long.compare(y, o.y);
         }
     }
-    
+
     @Override
     public List<Starship> listStarships(Integer x, Integer y) {
         Query q = em.createQuery("from Starship s where game = :game and xPos between :x and (:x + 19 - 1) and yPos between :y and (:y + 19 - 1)", Starship.class);
@@ -157,7 +155,6 @@ public class GameManager implements Serializable, IGameManagerLocal {
     }
 
     @Override
-    @Lock(LockType.WRITE)
     public Starship getOrCreateStarship() {
         if (getMember() == null) {
             return null;
@@ -165,6 +162,7 @@ public class GameManager implements Serializable, IGameManagerLocal {
         Query q = em.createQuery("from Starship a where active = true and a.member.id = :user", Starship.class);
         q.setParameter("user", getMember().getId());
         q.setMaxResults(1);
+        q.setLockMode(LockModeType.OPTIMISTIC);
         List resultList = q.getResultList();
         Starship starship;
         if (resultList.isEmpty()) {
