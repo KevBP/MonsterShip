@@ -34,6 +34,20 @@ form {
   border-radius: 20px;
   padding: 20px;
 }
+
+#showMap {
+  min-height: 10em;
+}
+
+#action {
+  min-height: 23px;
+}
+
+#action>button {
+  background-color: #232323;
+}
+
+
 fieldset {
   border-radius: 5px;
 }

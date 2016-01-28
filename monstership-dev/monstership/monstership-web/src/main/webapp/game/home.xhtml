@@ -8,6 +8,11 @@
         <f:view>
             <h:outputLabel value="Hello, commander #{member.pseudo}"/><br/>
             <h:outputLabel id="showStarshipPosition"></h:outputLabel>
+            <div>
+                <form id="action">
+
+                </form>
+            </div>
             <div id="showMap"></div>
             <h:form>
                 <h:commandButton action="#{gameController.disconnect}" value="Logout"/>

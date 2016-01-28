@@ -15,6 +15,8 @@ public class Game {
     private long width = 100;
     private long height = 100;
     private boolean finished = false;
+    @Version
+    protected int version;
 
     @OneToMany(targetEntity = GameObject.class, mappedBy = "game", fetch = FetchType.LAZY)
     private Set<GameObject> gameObjects;

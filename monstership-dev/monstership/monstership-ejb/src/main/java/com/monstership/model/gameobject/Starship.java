@@ -26,7 +26,7 @@ public class Starship extends GameObject implements Upgradable {
     @OneToMany(targetEntity = CombatLog.class, mappedBy = "starship", fetch = FetchType.LAZY)
     private Set<CombatLog> combatLogs;
 
-    @OneToMany(targetEntity = Module.class, mappedBy = "starship", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Module.class, mappedBy = "starship")
     private Set<Module> modules;
 
     public Starship() {
@@ -94,12 +94,14 @@ public class Starship extends GameObject implements Upgradable {
 
     public Enhancements getTotalEnhancements() {
         Enhancements ret = new Enhancements();
-        for (Module module : this.modules) {
-            Enhancements effect = module.effect();
-            if (effect != null) {
-                ret.setDodge(ret.getDodge() + effect.getDodge());
-                ret.setPower(ret.getPower() + effect.getPower());
-                ret.setSpeed(ret.getSpeed() + effect.getSpeed());
+        if (modules != null) {
+            for (Module module : this.modules) {
+                Enhancements effect = module.effect();
+                if (effect != null) {
+                    ret.setDodge(ret.getDodge() + effect.getDodge());
+                    ret.setPower(ret.getPower() + effect.getPower());
+                    ret.setSpeed(ret.getSpeed() + effect.getSpeed());
+                }
             }
         }
         return ret;
@@ -107,9 +109,12 @@ public class Starship extends GameObject implements Upgradable {
 
     public long getTotalMonsterCount() {
         long ret = getMonsterCount();
-        for (Module module : this.modules) {
-           ret += module.getMonsterCount();
+        if(modules != null){
+            for (Module module : this.modules) {
+                ret += module.getMonsterCount();
+            }
         }
+
         return ret;
     }
 }
