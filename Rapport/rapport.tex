@@ -24,7 +24,7 @@
   Dans le cadre de nos études de Master 2 Informatique, nous avons eu pour mission dans le module de Programmation d'Applications Distribuées de travailler en groupe à l'élaboration d'un projet utilisant JavaEE avec le serveur d'application WildFly puis de le développer. L'objectif est de développer un jeu accesisible depuis un navigateur. Le cahier des charges que nous avons écrit pour l'occasion est disponible en annexe.
 
 \chapter{Description de MosnterShip}
-  MonsterShip est un space opera se déroulant dans la zone de Sagittarius A*, au centre de notre galaxie. Nous contrôlons un vaisseau où l'équipage est composé de monstres. Pour améliorer le vaisseau, nous utilisons comme ressource première l'équipage qui fusionne avec la structure du vaisseau. Mais il faut aussi un certain nombre de monstres par module pour qu'il fonctionne correctement.
+  MonsterShip est un space opera se déroulant dans la zone de Sagittarius A*, au centre de notre galaxie. Nous contrôlons un vaisseau où l'équipage est composé de monstres. Pour améliorer le vaisseau, nous utilisons comme ressource première l'équipage qui fusionne avec la structure du vaisseau. Mais il faut aussi un certain nombre de monstres par module pour qu'il fonctionne correctement. Pour renouveler son équipage et donc d'augmenter la puissance de son vaisseau, il faut aller récolter des monstres sur des planètes ou des vaisseaux laissés à l'abandon par d'autres joueurs.
 
 \chapter{Le développement}
   Dans cette partie nous verrons la structure du projet, c'est à dire l'arborescence choisie, les technologies utilisées, puis nous verrons les fonctionnalités implémentées et fonctionnelles.
@@ -73,21 +73,33 @@
   \section{Les fonctionnalités implémentées}
 
     \subsection{Connexion et inscription}
-      Pour commencer un visiteur peut accéder depuis la page d'accueil de MonsterShip (qui est la page de connexion) à la page d'inscription. Il n'y a que deux champs : un premier pour le login, un second pour le mot de passe. Le login doit être unique et le mot de passe doit contenir entre 8 et 25 caractères.
-      \begin{figure}[H]
-        \begin{center}
-          \includegraphics[width=.8\textwidth]{images/connexion.png}
-          \caption{Écran de connexion}
-          \label{fig:ec_co}
-        \end{center}
-      \end{figure}
-      \begin{figure}[H]
-        \begin{center}
-          \includegraphics[width=.8\textwidth]{images/inscription.png}
-          \caption{Écran d'inscription}
-          \label{fig:ec_inc}
-        \end{center}
-      \end{figure}
+  
+      \paragraph{Description}
+        Pour commencer un visiteur peut accéder depuis la page d'accueil de MonsterShip (qui est la page de connexion) à la page d'inscription. Il n'y a que deux champs : un premier pour le login, un second pour le mot de passe. Le login doit être unique et le mot de passe doit contenir entre 8 et 25 caractères.
+        \begin{figure}[H]
+          \begin{center}
+            \includegraphics[width=.8\textwidth]{images/connexion.png}
+            \caption{Écran de connexion}
+            \label{fig:ec_co}
+          \end{center}
+        \end{figure}
+        \begin{figure}[H]
+          \begin{center}
+            \includegraphics[width=.8\textwidth]{images/inscription.png}
+            \caption{Écran d'inscription}
+            \label{fig:ec_inc}
+          \end{center}
+        \end{figure}
+        
+      \paragraph{Implémentation}
+        Nous avons créé une interface local à l'EJB pour gérer les connexions et les inscriptions : \textit{IMemberManagerLocal}. Cette interface propose les prototypes de deux méthodes : une première pour la connexion \textit{Member connect(Member member) throws Exception} et une seconde pour l'inscription \textit{Member register(Member member) throws Exception}.\\
+        Cette interface a été implémenté dans \textit{MemberManager}. Pour ces deux méthodes nous récupérons en paramètre un Member dont on verra d'où il vient plus tard dans cette partie. Pour la connexion nous utilisons l'EntityManager pour créer une requête qui récupèrera l'utilisateur dans la base de donnée. Cette requête cherche un utilisateur selon le pseudonyme et le mot de passe que nous avons dans l'objet de type Member (reçu en paramètre d'entrée). Puis nous retournons le Member que la requête a permis de trouver, si aucun Member n'est trouvé, nous lançons une exception.\\
+        Pour l'inscription nous utilisons l'\textit{EntityManager} pour inscrire le Member (le rendre persistant) dans la base de donnée.\\
+        
+        Du côté de l'application web, nous avons une page qui contient 
+        
+        Il faut ensuite faire le lien entre les Manager que nous venons de développer et l'application web. Pour cela on crée des Controller : notamment ici un \textit{MemberController} qui a comme attribut l'EJB IMemberManagerLocal.
+      
 
     \subsection{Visualisation de la carte et déplacements}
       Une fois l'utilisateur connecté (après une connexion ou une inscription valide), l'utilisateur accède à certaines informations de son vaisseau et à la map de la zone où il se trouve.
