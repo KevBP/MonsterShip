@@ -21,10 +21,10 @@
   Dans ce rapport, nous allons faire la recette du projet MonsterShip commencé le 16 Décembre 2015. Nous verrons ce qui était prévu, ce qui a été implémenté et comment les fonctionnalités ont été implémenté. Suivi des fonctionnalités manquantes, les idées qui sont venues au cours du développement, et un bilan de ce que nous avons appris avec cette expérience.
   
 \chapter{Contexte}
-  Dans le cadre de nos études de Master 2 Informatique, nous avons eu pour mission dans le module de Programmation d'Applications Distribuées de travailler en groupe à l'élaboration d'un projet utilisant JavaEE avec le serveur d'application WildFly puis de le développer. L'objectif est de développer un jeu accesisible depuis un navigateur. Le cahier des charges que nous avons écrit pour l'occasion est disponible en annexe.
+  Dans le cadre de nos études de Master 2 Informatique, nous avons eu pour mission dans le module de Programmation d'Applications Distribuées de travailler en groupe à l'élaboration d'un projet utilisant JavaEE avec le serveur d'application WildFly puis de le développer. L'objectif est de développer un jeu accessible depuis un navigateur. Le cahier des charges que nous avons écrit pour l'occasion est disponible en annexe.
 
-\chapter{Description de MosnterShip}
-  MonsterShip est un space opera se déroulant dans la zone de Sagittarius A*, au centre de notre galaxie. Nous contrôlons un vaisseau où l'équipage est composé de monstres. Pour améliorer le vaisseau, nous utilisons comme ressource première l'équipage qui fusionne avec la structure du vaisseau. Mais il faut aussi un certain nombre de monstres par module pour qu'il fonctionne correctement.
+\chapter{Description de MonsterShip}
+  MonsterShip est un space opera se déroulant dans la zone de Sagittarius A*, au centre de notre galaxie. Nous contrôlons un vaisseau dont l'équipage est composé de monstres. Pour améliorer le vaisseau, nous utilisons comme ressource première l'équipage qui fusionne avec la structure du vaisseau. Mais il faut aussi un certain nombre de monstres par module pour qu'il fonctionne correctement.
 
 \chapter{Le développement}
   Dans cette partie nous verrons la structure du projet, c'est à dire l'arborescence choisie, les technologies utilisées, puis nous verrons les fonctionnalités implémentées et fonctionnelles.
@@ -91,7 +91,7 @@
 
     \subsection{Visualisation de la carte et déplacements}
       Une fois l'utilisateur connecté (après une connexion ou une inscription valide), l'utilisateur accède à certaines informations de son vaisseau et à la map de la zone où il se trouve.
-      Nous affichons le nom du commander, les coordonnées de son vaisseau, son équipage et le nombre de points d'action qu'il lui reste. Ces informations sont mis à jours dynamiquement à chaque déplacement.
+      Nous affichons le nom du commander, les coordonnées de son vaisseau, son équipage et le nombre de points d'action qu'il lui reste. Ces informations sont mises à jour dynamiquement à chaque déplacement.
       Pour se déplacer, l'utilisateur doit cliquer sur les cases de la carte en sachant qu'il ne peut se déplacer qu'horizontalement ou verticalement. De même l'affichage de la carte est dynamique.
       \begin{figure}[H]
         \begin{center}
@@ -101,21 +101,51 @@
         \end{center}
       \end{figure}
 
-    \subsection{Récolte de monstres}
+    
 
 \chapter{La suite}
 
   \section{Les fonctionnalités non implémentées}
-    Liste des fonctionnalités qui étaient prévus mais non implémentées :
-    \begin{itemize}
-      \item nous ne pouvons ni abandonner le vaisseau, ni récupérer les vaisseaux abandonnées pour leurs ressources
-      \item nous ne pouvons attaquer d'autres joueurs
-      \item et les fonctionnalités liées à la gestion du vaisseau :
-      \begin{itemize}
-        \item ajouter des modules et pouvoir les améliorer
-        \item affecter des monstres aux modules
-      \end{itemize}
-    \end{itemize}
+    Certaines fonctionnalités prévues ne sont pas encore implémentées. 
+    Par exemple, nous n'avons pas eu le temps d'implémenter l'amélioration du vaisseau ni les combats entre les joueurs.
+    De même un joueur ayant perdu trop de combat et qui se retrouve avec un vaisseau trop endommagé doit pouvoir l'abandonner.
+    
+    \subsection{Récolte de monstres}
+      Pour améliorer le vaisseau, il faut le fusionner avec un certain nombre de membres d'équipages. Ceci implique que le joueur doit pouvoir en récupérer.
+      Pour cela, le plus simple est d'en recruter sur des planètes habitées. Le joueur doit donc se rendre sur une de ses planètes.
+      Après être allé au bon endroit, il dispose de deux solutions.
+      La première consiste à utiliser des points d'actions. Le joueur peut choisir le nombre de points d'actions qu'il souhaite utiliser.
+      Plus il investira de points d'actions, plus il récupèrera de monstres.
+      \newline
+      La seconde solution pour récupérer des monstres consiste à rester longtemps à la surface de la planète. Dans ce cas, le joueur n'utilise pas de points d'actions, et plus les garder pour se déplacer ou attaquer d'autres joueurs.
+      Le nombre de monstres récupéré dépendra uniquement du temps à la surface de la planète, ce qui peut donc être bien plus rentable.
+      Toutefois cette solution n'est pas sans risques. En effet, le joueur choisit au départ combien de temps il doit rester pour récupérer des monstres.
+      Comme il ne pourra pas partir avant la fin du timer, il s'expose aux attaques sans pouvoir se défendre ou s'enfuir. Il risque donc de perdre plus de monstres qu'il n'en récupèrera.
+      De plus, il peut également se retrouver avec un vaisseau gravement endommagé.
+    
+    \subsection{Améliorations du vaisseau}
+      Ensuite, pour surpasser les autres joueurs, il faut pouvoir améliorer son vaisseau. Pour cela, un joueur peut agrandir son vaisseau, et les modules qu'il contient.
+      \newline
+      Pour améliorer le vaisseau, il suffit de le faire fusionner avec des membres d'équipage. La difficulté est donc d'obtenir suffisemment de monstres pour agrandir son vaisseau en gardant un équipage suffisemment important pour utiliser l'ensemble des fonctionnalités.
+      \newline
+      Après avoir agrandit son vaisseau, le joueur peut ajouter des modules (réacteurs, armes, boucliers...).
+      La première possibilité consiste à créer un module. Pour cela il faut à nouveau sacrifier des monstres. 
+      Si le joueur souhaite garder son équipage, il peut aussi récupérer des composants sur les vaisseaux ennemis après avoir remporté un combat.
+      Cette seconde solution, plus rentable, est également plus risquée.
+      
+    \subsection{Combat}
+      Les combats correspondent à la fonctionnalité la plus interessante du jeu. En effet, un joueur peut en affronter un autre.
+      Pour cela, il doit repérer un vaisseau ennemis sur la map, et se diriger sur lui. 
+      S'il parvient à aller sur la même case que lui sans que le joueur ennemis ne puisse s'enfuir, ils devront s'affronter.
+      Chaque vaisseau devra alors tenter de détruire l'autre. Afin de diversifier les combats, les armes les plus efficaces dépendront du vaisseau ennemi.
+      En effet, les armes à projectiles seront efficaces sur la coque du vaisseau, mais presque inutiles sur les boucliers.
+      A l'issue du combat, l'un des vaisseau sera déclaré vainqueur, après avoir détruit l'appareil de l'autre joueur. 
+      Toutefois, le vainqueur risque aussi de perdre une partie de ses modules et l'équipage qui va avec, qu'il devra remplacer.
+      Afin de permettre à tous les joueurs de pouvoir se défendre contre tous les autres (dans le cas d'un joueur qui vient de s'inscrire contre un joueur ayant commencé il y a plusieurs mois, voire plusieurs années), les pertes du joueur le plus fort seront proportionnelles à l'écart entre leurs niveaux.
+      En revanche le joueurs le plus faible perdra beaucoup moins de modules et de monstres que s'il affronte un joueur de son niveau.
+      
+    
+    \subsection{Abandon du vaisseau}
 
   \section{D'autres idées}
 
