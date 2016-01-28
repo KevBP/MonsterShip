@@ -2,11 +2,12 @@
 \usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc}
 \usepackage[francais]{babel}
+\usepackage{lmodern}
 
 \usetheme{Darmstadt}
 \title[Présentation - MonsterShip]{Présentation - MonsterShip}
 \subtitle[\dots]{Pourquoi il vous le faut absolument !}
-\author[Olivier - Kevin - Maxime - Antoine]{BOISSARD Olivier - BOULALA Kevin - DUBOIS Maxime - LAVIER Antoine}
+\author[Olivier - Kevin - Maxime - Antoine]{\bsc{Boissard} Olivier - \bsc{Boulala} Kevin\\\bsc{Dubois} Maxime - \bsc{Lavier} Antoine}
 \institute[UFR ST]{UFR ST - Besançon\\Projet de PAD}
 \date{\today}
 
@@ -39,7 +40,7 @@
 			\end{alertblock}
 		\end{frame}
 		
-	\section{Sagittarius A*}
+	\section{L'univers de MonsterShip}
 		\begin{frame}
 			\frametitle{Bienvenue en orbite de Sagittarius A*}
 			\begin{block}{Incarnez ce que vous êtes}
@@ -63,7 +64,6 @@
 			\end{block}
 		\end{frame}
 		
-	\section{Description du jeu}
 		\begin{frame}
 			\frametitle{Description du jeu}
 			\begin{block}{Quelques mots sur MonsterShip}
@@ -89,6 +89,7 @@
 					\item Serveur JBoss (WildFly)
 					\item API REST \& Javascript
 				\end{itemize}
+				Nous vous montrerons à quoi peut bien ressembler une API REST à la pointe de la technologie lors de la démonstration
 			\end{block}
 		\end{frame}
 	
@@ -100,22 +101,27 @@
 			\end{alertblock}
 		\end{frame}
 		
-	\section{Connexion}
+	\section{Jeu}
 		\begin{frame}
 		\frametitle{Connexion de l'utilisateur}
 			\includegraphics[width=1\textwidth]{images/connexion.png} 
 		\end{frame}
 		
-	\section{Inscription}
 		\begin{frame}
 		\frametitle{Inscription d'un nouvel utilisateur}
 			\includegraphics[width=1\textwidth]{images/inscription.png} 
 		\end{frame}
 		
-	\section{Jeu}
 		\begin{frame}
 		\frametitle{Map du jeu}
 			\includegraphics[width=1\textwidth]{images/home.png} 
 		\end{frame}
+		
+	\section{Démo}
+	  \begin{frame}
+	    \begin{center}
+        {\Huge Lançons \href{http://localhost:8080/monstership-web/index.xhtml}{MonsterShip}}
+	    \end{center}
+	  \end{frame}
 		
 \end{document}
